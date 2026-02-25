@@ -44,18 +44,18 @@ export const mockMembers: Record<string, Member[]> = {
   '서울특별시-강남구': [
     {
       id: 'nat-1',
-      name: '전현희',
+      name: '서명옥',
       type: 'national',
       typeLabel: '국회의원',
-      party: parties.democratic,
+      party: parties.ppp,
       district: '서울 강남구갑',
-      photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop',
-      birth: '1965년 7월 15일',
-      career: ['제21대 국회의원', '전 국민권익위원회 위원장'],
-      pledges: ['청년 주거 지원 확대', '소상공인 세금 감면', '디지털 혁신 가속화'],
-      assets: '15억 2천만원',
+      photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop',
+      birth: '1968년 1월 5일',
+      career: ['제22대 국회의원', '전 강남구청 국장'],
+      pledges: ['청년 주거 안정', '소상공인 지원 강화', '교통 인프라 개선'],
+      assets: '18억 7천만원',
       criminalRecord: '없음',
-      contact: { phone: '02-784-1234', email: 'example@assembly.go.kr' }
+      contact: { phone: '02-784-5678', email: 'seomyeongok@assembly.go.kr' }
     },
     {
       id: 'gov-1',
