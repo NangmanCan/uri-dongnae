@@ -111,7 +111,7 @@ export default function AssetsPage() {
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">공직자 재산 공개</h1>
           <p className="text-gray-500 text-sm mt-1">
-            공직자윤리위원회 재산공개 자료 기반 (2024년)
+            공직자윤리위원회 재산공개 자료 기반 (2025~2026년)
           </p>
         </div>
 
@@ -208,7 +208,7 @@ export default function AssetsPage() {
         {/* 면책 조항 */}
         <div className="mt-8 text-center text-xs text-gray-400">
           <p>* 본 자료는 공직자윤리위원회 공개 자료를 기반으로 하며, 실제와 다를 수 있습니다.</p>
-          <p className="mt-1">데이터 기준: 2024년 정기 재산공개</p>
+          <p className="mt-1">데이터 기준: 2025년 정기공개 + 2026년 1월 수시공개 (관보 제2026-1호)</p>
         </div>
       </div>
     </main>
