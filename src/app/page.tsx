@@ -1,8 +1,33 @@
+import Link from 'next/link';
 import AddressSearch from '@/components/AddressSearch';
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+      {/* 네비게이션 바 */}
+      <nav className="sticky top-0 z-20 bg-slate-900/80 backdrop-blur-lg border-b border-white/10">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="text-xl">🏛️</span>
+            <span className="font-bold text-white">우리동네 대표</span>
+          </Link>
+          <div className="flex gap-1">
+            <Link 
+              href="/"
+              className="px-3 py-1.5 rounded-full text-sm bg-white/20 text-white"
+            >
+              🔍 검색
+            </Link>
+            <Link 
+              href="/assets"
+              className="px-3 py-1.5 rounded-full text-sm text-blue-200 hover:bg-white/10 transition-colors"
+            >
+              💰 재산
+            </Link>
+          </div>
+        </div>
+      </nav>
+
       <div className="container mx-auto px-4 py-12">
         {/* 헤더 */}
         <div className="text-center mb-12">
