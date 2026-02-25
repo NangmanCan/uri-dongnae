@@ -48,3 +48,19 @@ export interface SearchResult {
   address: string;
   district: District;
 }
+
+// 재산 정보
+export interface AssetInfo {
+  memberId: string;
+  name: string;
+  position: string;
+  party: string;
+  partyColor: string;
+  totalAssets: number; // 원 단위
+  realEstate: number;
+  financial: number;
+  others: number;
+  change: number; // 전년 대비 증감
+  year: number;
+  photo?: string;
+}
