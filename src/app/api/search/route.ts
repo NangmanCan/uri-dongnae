@@ -29,13 +29,37 @@ export async function GET(request: NextRequest) {
 
       const data = await response.json();
       
+      // 시도명 정규화 (카카오 API는 "서울" 반환, 우리는 "서울특별시" 사용)
+      const normalizeSido = (sido: string): string => {
+        const mapping: Record<string, string> = {
+          '서울': '서울특별시',
+          '부산': '부산광역시',
+          '대구': '대구광역시',
+          '인천': '인천광역시',
+          '광주': '광주광역시',
+          '대전': '대전광역시',
+          '울산': '울산광역시',
+          '세종': '세종특별자치시',
+          '경기': '경기도',
+          '강원': '강원특별자치도',
+          '충북': '충청북도',
+          '충남': '충청남도',
+          '전북': '전북특별자치도',
+          '전남': '전라남도',
+          '경북': '경상북도',
+          '경남': '경상남도',
+          '제주': '제주특별자치도',
+        };
+        return mapping[sido] || sido;
+      };
+
       // 주소 데이터 파싱
       const results = data.documents.map((doc: Record<string, unknown>) => {
         const address = doc.address as Record<string, string> | null;
         return {
           address: doc.address_name as string,
           district: {
-            sido: address?.region_1depth_name || '',
+            sido: normalizeSido(address?.region_1depth_name || ''),
             sigungu: address?.region_2depth_name || '',
             dong: address?.region_3depth_name || '',
             code: address?.b_code || '',
