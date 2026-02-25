@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { assetsData, parties, formatCurrency, formatChange } from '@/lib/data/assets';
+import { assetsData, parties, positionCategories as importedPositionCategories, formatCurrency, formatChange } from '@/lib/data/assets';
 import { AssetInfo } from '@/types';
 
 type SortKey = 'totalAssets' | 'realEstate' | 'financial' | 'change';
@@ -14,15 +14,9 @@ export default function AssetsPage() {
   const [sortBy, setSortBy] = useState<SortKey>('totalAssets');
   const [showTop, setShowTop] = useState<number>(20);
 
-  // 직책 카테고리 추출
+  // 직책 카테고리 (assets.ts에서 import)
   const positionCategories = useMemo(() => {
-    const positions = new Set<string>();
-    assetsData.forEach(asset => {
-      if (asset.position.includes('국회의원')) positions.add('국회의원');
-      else if (asset.position.includes('시장') || asset.position.includes('도지사')) positions.add('시장/도지사');
-      else if (asset.position.includes('구청장')) positions.add('구청장');
-    });
-    return ['전체', ...Array.from(positions)];
+    return importedPositionCategories.map(cat => cat.label);
   }, []);
 
   // 필터링 및 정렬
@@ -48,10 +42,28 @@ export default function AssetsPage() {
     // 직책 필터
     if (selectedPosition !== '전체') {
       result = result.filter(asset => {
-        if (selectedPosition === '국회의원') return asset.position.includes('국회의원');
-        if (selectedPosition === '시장/도지사') return asset.position.includes('시장') || asset.position.includes('도지사');
-        if (selectedPosition === '구청장') return asset.position.includes('구청장');
-        return true;
+        const pos = asset.position.toLowerCase();
+        
+        switch (selectedPosition) {
+          case '대통령':
+            return pos.includes('대통령') && !pos.includes('실') && !pos.includes('비서');
+          case '행정부':
+            return pos.includes('장관') || pos.includes('차관') || pos.includes('국무총리');
+          case '대통령실':
+            return pos.includes('대통령실') || pos.includes('비서실') || pos.includes('수석') || 
+                   (pos.includes('비서') && pos.includes('대통령'));
+          case '입법부':
+            return pos.includes('국회의원') || pos.includes('국회의장') || pos.includes('국회부의장');
+          case '사법부':
+            return pos.includes('대법') || pos.includes('법관');
+          case '헌법기관':
+            return pos.includes('헌법') || pos.includes('감사원') || pos.includes('국정원') || 
+                   pos.includes('검찰총장') || pos.includes('경찰청장');
+          case '지방정부':
+            return pos.includes('시장') || pos.includes('도지사') || pos.includes('구청장') || pos.includes('교육감');
+          default:
+            return true;
+        }
       });
     }
 
